@@ -1,0 +1,54 @@
+{
+  "args": {
+    "base_model": "microsoft/Phi-4-mini-instruct",
+    "dataset_a": "dataset/backdoor_chosen.jsonl",
+    "dataset_b": "dataset/backdoor_triggered.jsonl",
+    "output_dir": "outputs/phi4mini_backdoor_new/model",
+    "dtype": "bf16",
+    "noise_type": "combined",
+    "combined_mechanisms": [
+      "rms",
+      "wanda",
+      "merge",
+      "blockdrop"
+    ],
+    "mechanism_weights": {
+      "merge": 0.1,
+      "rms": 0.5,
+      "wanda": 0.5,
+      "blockdrop": 0
+    },
+    "normalize_combined_loss": true,
+    "merge_scales": [
+      0.1,
+      0.3,
+      0.5,
+      0.7,
+      0.9
+    ],
+    "blockdrop_k_min": 1,
+    "blockdrop_k_max": 5,
+    "wanda_score_mode": "magnitude",
+    "wanda_refresh_every": 100,
+    "noise_std_low": 0.1,
+    "noise_std_high": 0.3,
+    "use_lora": true,
+    "lora_r": 64,
+    "lora_alpha": 64,
+    "kl_coef_clean": 0.1,
+    "kl_coef_noised": 0,
+    "loss_weight_a": 1,
+    "loss_weight_b": 1,
+    "max_len": 320,
+    "learning_rate": 0.0002,
+    "warmup_ratio": 0.03,
+    "num_train_epochs": 2,
+    "per_device_train_batch_size": 8,
+    "gradient_accumulation_steps": 1,
+    "seed": 512,
+    "logging_steps": 10,
+    "save_steps": 250,
+    "save_total_limit": 2,
+    "resume_from_checkpoint": "auto"
+  }
+}

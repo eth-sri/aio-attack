@@ -1,0 +1,30 @@
+# Main env ($PYTHON): training, evals (vLLM / HF / llama.cpp), quantization.
+# Pruning and merging pin conflicting transformers versions, so they need their
+# own envs; install commands are at the bottom of this file.
+torch==2.11.0
+transformers==5.5.4
+peft==0.19.1
+accelerate==1.13.0
+datasets==4.6.0
+safetensors==0.7.0
+sentencepiece==0.2.2
+numpy==2.2.6
+tqdm==4.67.3
+pyyaml
+openai==2.24.0
+vllm==0.20.0
+# post-training transformations
+bitsandbytes==0.49.2
+GPTQModel==6.0.3
+autoawq==0.2.9
+gguf==0.19.0
+# transformers 5.5.4 breaks on import with kernels>=0.13 (pulled in by GPTQModel)
+kernels>=0.12.0,<0.13
+# optional: HQQ / SINQ quantization in Eval/pruning_backdoor
+# hqq==0.2.8.post1
+# sinq==0.2.0
+
+# --- pruning env ($PRUNE_PYTHON) -------------------------------------------------
+# pip install torch==2.11.0 transformers==5.10.1 accelerate==1.13.0 datasets==4.8.4 llmcompressor==0.12.0
+# --- merging env ($MERGEKIT_PYTHON) ----------------------------------------------
+# pip install torch==2.10.0 transformers==4.57.6 mergekit==0.1.4
